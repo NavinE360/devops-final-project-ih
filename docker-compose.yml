@@ -1,0 +1,69 @@
+services:
+  # Service for the Next.js app (Frontend)
+  nextjs-app:
+    image: navin360/frontend2201:latest
+    container_name: frontendfinal
+    build:
+      context: ./expensy_frontend  # Adjust this path to the directory containing the Dockerfile
+      dockerfile: Dockerfile  # Ensure the Dockerfile is in the specified directory
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app-network
+
+  # Service for the Node.js API (Backend)
+  node-api:
+    image: navin360/backend2201:latest  
+    container_name: backendfinal
+    build:
+      context: ./expensy_backend  # Adjust this path to the directory containing the backend Dockerfile
+    ports:
+      - "8706:8706"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app-network
+
+  # Service for MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  # Service for Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+# Define a network for the containers to communicate
+networks:
+  app-network:
+    driver: bridge
+
+# Define volumes to persist MongoDB data
+volumes:
+  mongo-data:
+    driver: local
+
+

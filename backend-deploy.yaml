@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend2301
+  labels:
+    app: backend2301
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: backend2301
+  template:
+    metadata:
+      labels:
+        app: backend2301
+    spec:
+      containers:
+      - name: backend2301
+        image: navin360/backend2201:latest
+        ports:
+        - containerPort: 8706
+        env:
+        - name: DATABASE_URI
+          value: "mongodb://root:example@mongo:27017/"  # MongoDB connection string
+        - name: REDIS_HOST
+          value: "redis"  # Redis host
+        - name: PORT
+          value: "8706"  # Redis port
+        - name: REDIS_PASSWORD
+          value: "someredispassword"  # Redis password (change as needed)
+       

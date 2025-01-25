@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend2301-deployment
+  labels:
+    app: frontend2301
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend2301
+  template:
+    metadata:
+      labels:
+        app: frontend2301
+    spec:
+      containers:
+      - name: frontend2301
+        image: navin360/frontend2201
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://a0159d2048f1449839db0f5fb5e14229-1820137776.eu-central-2.elb.amazonaws.com:8706"

@@ -1,0 +1,30 @@
+kubectl apply -f backend-deploy.yaml
+
+kubectl apply -f backend-service.yml
+
+
+kubectl apply -f database-deploy.yaml
+
+kubectl apply -f database-service.yml
+
+kubectl apply -f database-pv.yml
+
+kubectl apply -f database-pvc.yml
+
+
+kubectl apply -f redis-deployment.yml
+
+kubectl apply -f redis-service.yml
+
+kubectl apply -f redis-pv.yml
+
+kubectl apply -f redis-pvc.yml
+
+
+kubectl apply -f frontend-deploy.yaml
+
+kubectl apply -f frontend-service.yml
+
+
+kubectl get deployments 
+kubectl get svc

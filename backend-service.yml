@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend2301
+  labels:
+    app: backend2301
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "backend-service"
+    port: 8706
+    targetPort: 8706
+  selector:
+    app: backend2301
