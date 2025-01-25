@@ -1,3 +1,4 @@
+
 services:
   # Service for the Next.js app (Frontend)
   nextjs-app:
@@ -9,9 +10,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydb
+      - DATABASE_URI=mongodb://root:example@mongo:27017
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=someredispassword
     depends_on:
       - mongo
       - redis
@@ -27,9 +29,11 @@ services:
     ports:
       - "8706:8706"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydb
+      - DATABASE_URI=mongodb://root:example@mongo:27017
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=someredispassword
+      - PORT=8706
     depends_on:
       - mongo
       - redis
@@ -42,6 +46,9 @@ services:
     container_name: mongo
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongo-data:/data/db
     networks:
@@ -53,6 +60,9 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=someredispassword
+    command: ["redis-server", "--requirepass", "someredispassword"]
     networks:
       - app-network
 
