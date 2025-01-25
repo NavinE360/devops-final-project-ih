@@ -21,8 +21,8 @@ jobs:
     # Step 3: Build Docker image
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend1270125:latest ./expensy_backend
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend270125:latest ./expensy_frontend
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend2201:latest ./expensy_backend
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend2201:latest ./expensy_frontend
    
 
     # Step 4: Push Docker image to DockerHub
@@ -34,8 +34,8 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/backend270125:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/frontend270125:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/backend2201:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/frontend2201:latest
      
   
   deploy:
